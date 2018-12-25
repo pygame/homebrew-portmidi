@@ -6,7 +6,9 @@ class Python < Formula
   revision 1
 
   bottle do
-    sha256 "1bc5a2d3f0a8602bf2f46de7c43fcb6dde4f110c0f4518d4e802cb1f733a43de" => :high_sierra
+    # bottles are obtained from "#{root_url}/#{name}-#{version}.#{tag}.bottle.#{revision}.tar.gz"
+    root_url 'https://github.com/dlon/homebrew-portmidi/releases/download/v0.1'
+    sha256 "5c41547de21c502ed1ed84074c00f0ea271acc21167400299c9dde6e6c3c460c" => :high_sierra
     sha256 "131d39120ac6ca2f21bf231de7414c08916cea472bc5219e0bcb49541f77cb9f" => :sierra
     sha256 "b2584ea6f16c47fe3795745e9cae5a7762f750aa78c15cbe14736dcd2602b755" => :el_capitan
   end
