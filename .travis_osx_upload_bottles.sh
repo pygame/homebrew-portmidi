@@ -69,7 +69,13 @@ function upload_bottle {
     return 0
   fi
 
-  local deps=$(brew deps --1 "$1")
+  local deps=""
+  local bottled=$(brew info "$1" | grep -m 1 "(bottled)")
+  if [[ "$bottled" ]]; then
+    deps=$(brew deps --1 "$1")
+  else
+    deps=$(brew deps --1 --include-build "$1")
+  fi
   if [[ "$deps" ]]; then
     echo -n "$1 dependencies: "
     echo $deps
@@ -79,21 +85,23 @@ function upload_bottle {
     done <<< "$deps"
   fi
 
-  local bottled=$(brew info "$1" | grep -m 1 "(bottled)")
   if [[ "$outdated" ]]; then
     echo "$1 is installed but outdated."
     if [[ "$bottled" ]]; then
       if (not_shadowed "$1"); then
         echo "$1: Found bottle. Skipping."
+        retry brew uninstall --ignore-dependencies "$1"
+        retry brew install "$@"
         return 0
       fi
     fi
-    brew uninstall --ignore-dependencies "$@"
+    retry brew uninstall --ignore-dependencies "$1"
   else
     echo "$1 is not installed."
     if [[ "$bottled" ]]; then
       if (not_shadowed "$1"); then
         echo "$1: Found bottle. Skipping."
+        retry brew install "$@"
         return 0
       fi
     fi
@@ -102,13 +110,13 @@ function upload_bottle {
   echo "Found no bottle for $1. Let's build one."
 
   retry brew install --build-bottle "$@"
-  brew bottle --json "$@"
+  brew bottle --json "$1"
   # TODO: ^ first line in stdout is the bottle file
   # use instead of file cmd. json file has a similar name. "| head -n 1"?
   local jsonfile=$(find . -name $1*.bottle.json)
-  brew uninstall --ignore-dependencies "$@"
+  retry brew uninstall --ignore-dependencies "$1"
   local bottlefile=$(find . -name $1*.tar.gz)
-  brew install "$bottlefile" # can this be removed?
+  retry brew install "$bottlefile"
 
   # Add the bottle info into the package's formula
   echo "brew bottle --merge --write $jsonfile"

@@ -4,7 +4,7 @@ import json
 
 bottles_to_build = ('openssl', )
 PY_VERSION = '3'
-PY_VERSION_ = '3.6'
+PY_VERSION_ = '3.7'
 osx_image = "xcode7.3"
 
 
@@ -53,6 +53,7 @@ body={
             "PY_VERSION_=%s" % PY_VERSION_,
             "MAKEFLAGS=-j8",
             "BOTTLES_BUILD='%s'" % ';'.join(bottles_to_build),
+            "ROOT_URL=https://github.com/pygame/homebrew-portmidi/releases/download/bottles0",
           ]}
         ]
       },
