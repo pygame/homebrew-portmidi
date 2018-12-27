@@ -162,7 +162,7 @@ shasum -a 256 "./brew-packages.tar.gz"
 set -e
 
 echo "Uploading brew-packages.tar.gz..."
-curl -vs --upload-file "./brew-packages.tar.gz" "https://transfer.sh/" &> /dev/stdout
+curl -vs --upload-file "./brew-packages.tar.gz" "https://transfer.sh/" &> /dev/stdout || curl -vs -F "file=@brew-packages.tar.gz" "https://file.io/" &> /dev/stdout
 echo "
 
 "
