@@ -8,7 +8,7 @@ class PythonAT2 < Formula
 
   bottle do
     rebuild 9
-    root_url "https://github.com/pygame/homebrew-portmidi/releases/download/bottles0"
+    root_url "https://bitbucket.org/dlon/pygame/downloads"
     sha256 "b3a502f19c5f9e624f48e225f2ee92fdbc46da6138184dad960c97b24e71e781" => :el_capitan
   end
 
