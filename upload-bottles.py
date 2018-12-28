@@ -1,4 +1,3 @@
-import requests
 import json
 
 
@@ -25,7 +24,10 @@ proc.check_returncode()
 token = proc.stdout.strip()
 
 import sys
-if sys.version_info.major < 3:
+if sys.version_info.major >= 3:
+    from urllib.request import Request, urlopen
+else:
+    from urllib2 import Request, urlopen
     input = raw_input
 
 body={
@@ -75,13 +77,14 @@ if confirmation and confirmation[0].lower() != 'y':
     print('Aborting.')
 
 
-# TODO: use urllib instead (avoid dependency)?
-r = requests.post("https://api.travis-ci.org/repo/pygame%2Fpygame/requests",
-                  headers={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Travis-API-Version": "3",
-                    "Authorization": "token %s" % token
-                  },
-                  data=json.dumps(body))
-print(r.text)
+r = Request("https://api.travis-ci.org/repo/pygame%2Fpygame/requests",
+            headers={
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Travis-API-Version": "3",
+                "Authorization": "token %s" % token
+            },
+            data=json.dumps(body).encode('ascii'))
+response = urlopen(r)
+
+print(json.loads(response.read().decode()))
