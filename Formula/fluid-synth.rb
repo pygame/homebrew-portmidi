@@ -13,7 +13,7 @@ class FluidSynth < Formula
     sha256 "c00727a551aaa9e5029a985cb6b30bf20d9d5440e73859b662f91be149ebb5c1" => :sierra
   end
 
-  depends_on "pygame/portmidi/cmake" => :build
+  depends_on "pygame/portmidi/pgcmake" => :build
   depends_on "pkg-config" => :build
   depends_on "pygame/portmidi/glib"
   depends_on "libsndfile"

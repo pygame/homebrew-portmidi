@@ -30,10 +30,10 @@ class Python < Formula
 
   depends_on "pkg-config" => :build
   depends_on "sphinx-doc" => :build
-  depends_on "gdbm"
-  depends_on "openssl"
+  depends_on "pygame/portmidi/gdbm"
+  depends_on "pygame/portmidi/openssl"
   depends_on "readline"
-  depends_on "sqlite"
+  depends_on "pygame/portmidi/sqlite"
   depends_on "xz"
   depends_on "tcl-tk" => :optional
 

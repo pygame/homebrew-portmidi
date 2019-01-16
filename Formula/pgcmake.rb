@@ -1,4 +1,4 @@
-class Cmake < Formula
+class PgCmake < Formula
   desc "Cross-platform make"
   homepage "https://www.cmake.org/"
   url "https://github.com/Kitware/CMake/releases/download/v3.13.2/cmake-3.13.2.tar.gz"
