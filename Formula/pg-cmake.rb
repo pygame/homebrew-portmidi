@@ -5,14 +5,13 @@ class PgCmake < Formula
   sha256 "c925e7d2c5ba511a69f43543ed7b4182a7d446c274c7480d0e42cd933076ae25"
   head "https://cmake.org/cmake.git"
 
-  #bottle do
-  #  cellar :any_skip_relocation
-  #  rebuild 1
-  #  root_url "https://github.com/pygame/homebrew-portmidi/releases/download/bottles0"
-  #  sha256 "e461b82b74e77e77cfffa30696bf0d63e55eff902cc36f2b02ca98a355a4600b" => :el_capitan
-  #end
+  bottle do
+    cellar :any_skip_relocation
+    root_url "https://github.com/pygame/homebrew-portmidi/releases/download/bottles0"
+    sha256 "62773dee6e3fa9c5d1d338db11a7165933e222b22aad8e0662c38536c29d0184" => :el_capitan
+  end
 
-  depends_on "sphinx-doc" => :build
+  depends_on "pygame/portmidi/sphinx-doc" => :build
 
   # The completions were removed because of problems with system bash
 

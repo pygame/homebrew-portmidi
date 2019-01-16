@@ -1,4 +1,4 @@
-class Pgcmake < Formula
+class Cmake < Formula
   desc "Cross-platform make"
   homepage "https://www.cmake.org/"
   url "https://github.com/Kitware/CMake/releases/download/v3.13.2/cmake-3.13.2.tar.gz"
@@ -12,7 +12,7 @@ class Pgcmake < Formula
     sha256 "e461b82b74e77e77cfffa30696bf0d63e55eff902cc36f2b02ca98a355a4600b" => :el_capitan
   end
 
-  depends_on "sphinx-doc" => :build
+  depends_on "pygame/portmidi/sphinx-doc" => :build
 
   # The completions were removed because of problems with system bash
 

@@ -9,7 +9,7 @@ class Portmidi < Formula
     cellar :any
   end
 
-  depends_on "pygame/portmidi/pgcmake" => :build
+  depends_on "pygame/portmidi/pg-cmake" => :build
 
   def install
     if MacOS.version == :sierra || MacOS.version == :el_capitan

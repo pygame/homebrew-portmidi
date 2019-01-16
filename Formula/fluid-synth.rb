@@ -12,7 +12,7 @@ class FluidSynth < Formula
     sha256 "d86f4c855c358ebf7d8fb766774e698e78af1022b90edb930bb9657a41d1481a" => :el_capitan
   end
 
-  depends_on "pygame/portmidi/pgcmake" => :build
+  depends_on "pygame/portmidi/pg-cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "pygame/portmidi/glib"
   depends_on "libsndfile"

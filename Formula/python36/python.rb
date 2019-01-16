@@ -29,7 +29,7 @@ class Python < Formula
   deprecated_option "with-brewed-tk" => "with-tcl-tk"
 
   depends_on "pkg-config" => :build
-  depends_on "sphinx-doc" => :build
+  depends_on "pygame/portmidi/sphinx-doc" => :build
   depends_on "pygame/portmidi/gdbm"
   depends_on "pygame/portmidi/openssl"
   depends_on "readline"
