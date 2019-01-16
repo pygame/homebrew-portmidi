@@ -11,7 +11,7 @@ class SdlMixer < Formula
   depends_on "libvorbis"
   depends_on "sdl"
   depends_on "flac" => :optional
-  depends_on "fluid-synth" => :optional
+  depends_on "pygame/portmidi/fluid-synth" => :optional
   depends_on "smpeg" => :optional
 
   patch do

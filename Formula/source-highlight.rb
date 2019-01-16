@@ -13,7 +13,7 @@ class SourceHighlight < Formula
     sha256 "bee2b51657cf453765c9b3c1346f38ab6cd19d610c89b78ea811afda724a4095" => :el_capitan
   end
 
-  depends_on "boost"
+  depends_on "pygame/portmidi/boost"
 
   needs :cxx11
 

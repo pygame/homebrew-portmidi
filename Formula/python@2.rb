@@ -25,10 +25,10 @@ class PythonAT2 < Formula
 
   depends_on "pkg-config" => :build
   depends_on "sphinx-doc" => :build if MacOS.version > :snow_leopard
-  depends_on "gdbm"
-  depends_on "openssl"
+  depends_on "pygame/portmidi/gdbm"
+  depends_on "pygame/portmidi/openssl"
   depends_on "readline"
-  depends_on "sqlite"
+  depends_on "pygame/portmidi/sqlite"
 
   resource "setuptools" do
     url "https://files.pythonhosted.org/packages/37/1b/b25507861991beeade31473868463dad0e58b1978c209de27384ae541b0b/setuptools-40.6.3.zip"
