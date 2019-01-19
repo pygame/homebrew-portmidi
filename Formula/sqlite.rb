@@ -19,7 +19,7 @@ class Sqlite < Formula
   option "with-functions", "Enable more math and string functions for SQL queries"
   option "with-json1", "Enable the JSON1 extension"
 
-  depends_on "readline"
+  depends_on "pygame/portmidi/readline"
 
   resource "functions" do
     url "https://sqlite.org/contrib/download/extension-functions.c?get=25"

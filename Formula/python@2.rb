@@ -27,7 +27,7 @@ class PythonAT2 < Formula
   depends_on "sphinx-doc" => :build if MacOS.version > :snow_leopard
   depends_on "pygame/portmidi/gdbm"
   depends_on "pygame/portmidi/openssl"
-  depends_on "readline"
+  depends_on "pygame/portmidi/readline"
   depends_on "pygame/portmidi/sqlite"
 
   resource "setuptools" do
