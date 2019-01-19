@@ -8,6 +8,7 @@ class Readline < Formula
 
   bottle do
     cellar :any
+    root_url "https://github.com/pygame/homebrew-portmidi/releases/download/bottles0"
     sha256 "5976a79f0dbd5ccb2a261f692763319d612309caa2b8cf703f209270764c657c" => :mojave
     sha256 "0cc8fcf8ee733e41c40b859a09eb00f723222a40398fdd15d32891df1eca2eef" => :high_sierra
     sha256 "962ae47be894e6d3a354b24953fc6b456c42dc054bcd44092cabf65e734a152b" => :sierra
