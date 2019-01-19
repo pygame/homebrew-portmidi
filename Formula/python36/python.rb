@@ -32,7 +32,7 @@ class Python < Formula
   depends_on "pygame/portmidi/sphinx-doc" => :build
   depends_on "pygame/portmidi/gdbm"
   depends_on "pygame/portmidi/openssl"
-  depends_on "readline"
+  depends_on "pygame/portmidi/readline"
   depends_on "pygame/portmidi/sqlite"
   depends_on "xz"
   depends_on "tcl-tk" => :optional
