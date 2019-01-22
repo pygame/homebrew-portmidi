@@ -6,13 +6,13 @@ class SdlMixer < Formula
   revision 3
 
   depends_on "pkg-config" => :build
-  depends_on "libmikmod"
+  depends_on "pygame/portmidi/libmikmod"
   depends_on "libogg"
   depends_on "libvorbis"
-  depends_on "sdl"
+  depends_on "pygame/portmidi/sdl"
   depends_on "flac" => :optional
   depends_on "pygame/portmidi/fluid-synth" => :optional
-  depends_on "smpeg" => :optional
+  depends_on "pygame/portmidi/smpeg" => :optional
 
   patch do
     url "https://git.archlinux.org/svntogit/packages.git/plain/trunk/double-free-crash.patch?h=packages/sdl_mixer"
