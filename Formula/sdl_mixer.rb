@@ -7,10 +7,10 @@ class SdlMixer < Formula
 
   depends_on "pkg-config" => :build
   depends_on "pygame/portmidi/libmikmod"
-  depends_on "libogg"
-  depends_on "libvorbis"
+  depends_on "pygame/portmidi/libogg"
+  depends_on "pygame/portmidi/libvorbis"
   depends_on "pygame/portmidi/sdl"
-  depends_on "flac" => :optional
+  depends_on "pygame/portmidi/flac" => :optional
   depends_on "pygame/portmidi/fluid-synth" => :optional
   depends_on "pygame/portmidi/smpeg" => :optional
 

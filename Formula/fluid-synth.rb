@@ -15,8 +15,8 @@ class FluidSynth < Formula
   depends_on "pygame/portmidi/pg-cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "pygame/portmidi/glib"
-  depends_on "libsndfile"
-  depends_on "portaudio"
+  depends_on "pygame/portmidi/libsndfile"
+  depends_on "pygame/portmidi/portaudio"
 
   def install
     args = std_cmake_args

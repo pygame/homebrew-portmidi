@@ -34,7 +34,7 @@ class Python < Formula
   depends_on "pygame/portmidi/openssl"
   depends_on "pygame/portmidi/readline"
   depends_on "pygame/portmidi/sqlite"
-  depends_on "xz"
+  depends_on "pygame/portmidi/xz"
   depends_on "tcl-tk" => :optional
 
   skip_clean "bin/pip3", "bin/pip-3.4", "bin/pip-3.5", "bin/pip-3.6"
