@@ -35,7 +35,7 @@ class PgCmake < Formula
       --datadir=/share/cmake
       --docdir=/share/doc/cmake
       --mandir=/share/man
-      --sphinx-build=#{Formula["sphinx-doc"].opt_bin}/sphinx-build
+      --sphinx-build=#{Formula["pygame/portmidi/sphinx-doc"].opt_bin}/sphinx-build
       --sphinx-html
       --sphinx-man
       --system-zlib

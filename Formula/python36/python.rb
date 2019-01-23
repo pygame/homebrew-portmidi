@@ -30,10 +30,10 @@ class Python < Formula
 
   depends_on "pkg-config" => :build
   depends_on "pygame/portmidi/sphinx-doc" => :build
-  depends_on "pygame/portmidi/gdbm"
+  #depends_on "pygame/portmidi/gdbm"
   depends_on "pygame/portmidi/openssl"
   depends_on "pygame/portmidi/readline"
-  depends_on "pygame/portmidi/sqlite"
+  #depends_on "pygame/portmidi/sqlite"
   depends_on "pygame/portmidi/xz"
   depends_on "tcl-tk" => :optional
 
@@ -91,9 +91,10 @@ class Python < Formula
       --datarootdir=#{share}
       --datadir=#{share}
       --enable-framework=#{frameworks}
-      --enable-loadable-sqlite-extensions
       --without-ensurepip
       --with-dtrace
+      --without-gdbm
+      --without-sqlite
     ]
 
     args << "--without-gcc" if ENV.compiler == :clang
@@ -128,11 +129,11 @@ class Python < Formula
       args << "--with-openssl=#{Formula["openssl"].opt_prefix}"
     end
 
-    inreplace "setup.py" do |s|
-      s.gsub! "sqlite_setup_debug = False", "sqlite_setup_debug = True"
-      s.gsub! "for d_ in inc_dirs + sqlite_inc_paths:",
-              "for d_ in ['#{Formula["sqlite"].opt_include}']:"
-    end
+    #inreplace "setup.py" do |s|
+    #  s.gsub! "sqlite_setup_debug = False", "sqlite_setup_debug = True"
+    #  s.gsub! "for d_ in inc_dirs + sqlite_inc_paths:",
+    #          "for d_ in ['#{Formula["sqlite"].opt_include}']:"
+    #end
 
     # Allow python modules to use ctypes.find_library to find homebrew's stuff
     # even if homebrew is not a /usr/local/lib. Try this with:
@@ -277,10 +278,12 @@ class Python < Formula
     end
 
     # Help distutils find brewed stuff when building extensions
-    include_dirs = [HOMEBREW_PREFIX/"include", Formula["openssl"].opt_include,
-                    Formula["sqlite"].opt_include]
-    library_dirs = [HOMEBREW_PREFIX/"lib", Formula["openssl"].opt_lib,
-                    Formula["sqlite"].opt_lib]
+    #include_dirs = [HOMEBREW_PREFIX/"include", Formula["openssl"].opt_include,
+    #                Formula["sqlite"].opt_include]
+    #library_dirs = [HOMEBREW_PREFIX/"lib", Formula["openssl"].opt_lib,
+    #                Formula["sqlite"].opt_lib]
+    include_dirs = [HOMEBREW_PREFIX/"include", Formula["openssl"].opt_include]
+    library_dirs = [HOMEBREW_PREFIX/"lib", Formula["openssl"].opt_lib]
 
     if build.with? "tcl-tk"
       include_dirs << Formula["tcl-tk"].opt_include
@@ -382,10 +385,10 @@ class Python < Formula
     xy = (prefix/"Frameworks/Python.framework/Versions").children.min.basename.to_s
     # Check if sqlite is ok, because we build with --enable-loadable-sqlite-extensions
     # and it can occur that building sqlite silently fails if OSX's sqlite is used.
-    system "#{bin}/python#{xy}", "-c", "import sqlite3"
+    #system "#{bin}/python#{xy}", "-c", "import sqlite3"
     # Check if some other modules import. Then the linked libs are working.
     system "#{bin}/python#{xy}", "-c", "import tkinter; root = tkinter.Tk()"
-    system "#{bin}/python#{xy}", "-c", "import _gdbm"
+    #system "#{bin}/python#{xy}", "-c", "import _gdbm"
     system bin/"pip3", "list", "--format=columns"
   end
 end

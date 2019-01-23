@@ -22,7 +22,7 @@ class Smpeg < Formula
   def install
     args = %W[
       --prefix=#{prefix}
-      --with-sdl-prefix=#{Formula["sdl"].opt_prefix}
+      --with-sdl-prefix=#{Formula["pygame/portmidi/sdl"].opt_prefix}
       --disable-dependency-tracking
       --disable-debug
       --disable-gtk-player

@@ -25,10 +25,10 @@ class PythonAT2 < Formula
 
   depends_on "pkg-config" => :build
   depends_on "pygame/portmidi/sphinx-doc" => :build if MacOS.version > :snow_leopard
-  depends_on "pygame/portmidi/gdbm"
+  #depends_on "pygame/portmidi/gdbm"
   depends_on "pygame/portmidi/openssl"
   depends_on "pygame/portmidi/readline"
-  depends_on "pygame/portmidi/sqlite"
+  #depends_on "pygame/portmidi/sqlite"
 
   resource "setuptools" do
     url "https://files.pythonhosted.org/packages/37/1b/b25507861991beeade31473868463dad0e58b1978c209de27384ae541b0b/setuptools-40.6.3.zip"
@@ -71,6 +71,8 @@ class PythonAT2 < Formula
       --datadir=#{share}
       --enable-framework=#{frameworks}
       --without-ensurepip
+      --without-gdbm
+      --without-sqlite
     ]
 
     # See upstream bug report from 22 Jan 2018 "Significant performance problems
@@ -106,19 +108,19 @@ class PythonAT2 < Formula
     # superenv handles that cc finds includes/libs!
     inreplace "setup.py" do |s|
       s.gsub! "do_readline = self.compiler.find_library_file(lib_dirs, 'readline')",
-              "do_readline = '#{Formula["readline"].opt_lib}/libhistory.dylib'"
-      s.gsub! "/usr/local/ssl", Formula["openssl"].opt_prefix
+              "do_readline = '#{Formula["pygame/portmidi/readline"].opt_lib}/libhistory.dylib'"
+      s.gsub! "/usr/local/ssl", Formula["pygame/portmidi/openssl"].opt_prefix
     end
 
-    inreplace "setup.py" do |s|
-      s.gsub! "sqlite_setup_debug = False", "sqlite_setup_debug = True"
-      s.gsub! "for d_ in inc_dirs + sqlite_inc_paths:",
-              "for d_ in ['#{Formula["sqlite"].opt_include}']:"
+    #inreplace "setup.py" do |s|
+    #  s.gsub! "sqlite_setup_debug = False", "sqlite_setup_debug = True"
+    #  s.gsub! "for d_ in inc_dirs + sqlite_inc_paths:",
+    #          "for d_ in ['#{Formula["pygame/portmidi/sqlite"].opt_include}']:"
 
-      # Allow sqlite3 module to load extensions:
-      # https://docs.python.org/library/sqlite3.html#f1
-      s.gsub! 'sqlite_defines.append(("SQLITE_OMIT_LOAD_EXTENSION", "1"))', ""
-    end
+    #  # Allow sqlite3 module to load extensions:
+    #  # https://docs.python.org/library/sqlite3.html#f1
+    #  s.gsub! 'sqlite_defines.append(("SQLITE_OMIT_LOAD_EXTENSION", "1"))', ""
+    #end
 
     # Allow python modules to use ctypes.find_library to find homebrew's stuff
     # even if homebrew is not a /usr/local/lib. Try this with:
@@ -224,10 +226,12 @@ class PythonAT2 < Formula
     end
 
     # Help distutils find brewed stuff when building extensions
-    include_dirs = [HOMEBREW_PREFIX/"include", Formula["openssl"].opt_include,
-                    Formula["sqlite"].opt_include]
-    library_dirs = [HOMEBREW_PREFIX/"lib", Formula["openssl"].opt_lib,
-                    Formula["sqlite"].opt_lib]
+    #include_dirs = [HOMEBREW_PREFIX/"include", Formula["pygame/portmidi/openssl"].opt_include,
+    #                Formula["pygame/portmidi/sqlite"].opt_include]
+    #library_dirs = [HOMEBREW_PREFIX/"lib", Formula["pygame/portmidi/openssl"].opt_lib,
+    #                Formula["pygame/portmidi/sqlite"].opt_lib]
+    include_dirs = [HOMEBREW_PREFIX/"include", Formula["pygame/portmidi/openssl"].opt_include]
+    library_dirs = [HOMEBREW_PREFIX/"lib", Formula["pygame/portmidi/openssl"].opt_lib]
 
     cfg = lib_cellar/"distutils/distutils.cfg"
     cfg.atomic_write <<~EOS
@@ -307,10 +311,10 @@ class PythonAT2 < Formula
   test do
     # Check if sqlite is ok, because we build with --enable-loadable-sqlite-extensions
     # and it can occur that building sqlite silently fails if OSX's sqlite is used.
-    system "#{bin}/python", "-c", "import sqlite3"
+    #system "#{bin}/python", "-c", "import sqlite3"
     # Check if some other modules import. Then the linked libs are working.
     system "#{bin}/python", "-c", "import Tkinter; root = Tkinter.Tk()"
-    system "#{bin}/python", "-c", "import gdbm"
+    #system "#{bin}/python", "-c", "import gdbm"
     system "#{bin}/python", "-c", "import zlib"
     system bin/"pip", "list", "--format=columns"
   end

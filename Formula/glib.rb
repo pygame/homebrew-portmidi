@@ -14,7 +14,7 @@ class Glib < Formula
   # bug 780271 is fixed and gio.patch is modified accordingly
   depends_on "autoconf" => :build
   depends_on "automake" => :build
-  depends_on "pygame/portmidi/gtk-doc" => :build
+  #depends_on "pygame/portmidi/gtk-doc" => :build
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
   depends_on "pygame/portmidi/gettext"
@@ -42,6 +42,7 @@ class Glib < Formula
 
     # Disable dtrace; see https://trac.macports.org/ticket/30413
     args = %W[
+      --disable-gtk-doc
       --disable-maintainer-mode
       --disable-dependency-tracking
       --disable-silent-rules
@@ -78,7 +79,7 @@ class Glib < Formula
 
     # `pkg-config --libs glib-2.0` includes -lintl, and gettext itself does not
     # have a pkgconfig file, so we add gettext lib and include paths here.
-    gettext = Formula["gettext"].opt_prefix
+    gettext = Formula["pygame/portmidi/gettext"].opt_prefix
     inreplace lib+"pkgconfig/glib-2.0.pc" do |s|
       s.gsub! "Libs: -L${libdir} -lglib-2.0 -lintl",
               "Libs: -L${libdir} -lglib-2.0 -L#{gettext}/lib -lintl"
