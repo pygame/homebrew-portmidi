@@ -14,17 +14,21 @@ class Sdl2Mixer < Formula
 
   depends_on "pkg-config" => :build
   depends_on "libmodplug"
-  depends_on "libvorbis"
   depends_on "sdl2"
-  depends_on "smpeg"
-
+  depends_on "pygame/portmidi/libmikmod"
+  depends_on "pygame/portmidi/libogg"
+  depends_on "pygame/portmidi/libvorbis"
+  depends_on "pygame/portmidi/flac" => :optional
+  depends_on "pygame/portmidi/fluid-synth" => :optional
+  depends_on "pygame/portmidi/smpeg"
+  
+  
   def install
     inreplace "SDL2_mixer.pc.in", "@prefix@", HOMEBREW_PREFIX
 
     args = %W[
       --prefix=#{prefix}
       --disable-dependency-tracking
-      --disable-music-flac
       --disable-music-flac-shared
       --disable-music-midi-fluidsynth
       --disable-music-midi-fluidsynth-shared
