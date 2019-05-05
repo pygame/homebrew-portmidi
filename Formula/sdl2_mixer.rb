@@ -20,7 +20,7 @@ class Sdl2Mixer < Formula
   depends_on "pygame/portmidi/libvorbis"
   depends_on "pygame/portmidi/flac" => :optional
   depends_on "pygame/portmidi/fluid-synth" => :optional
-  depends_on "pygame/portmidi/smpeg"
+  depends_on "smpeg2"
   
   
   def install
