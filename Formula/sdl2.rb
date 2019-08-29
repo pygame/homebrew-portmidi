@@ -19,6 +19,12 @@ class Sdl2 < Formula
     depends_on "libtool" => :build
   end
 
+  # Fix 10.11 compilation.
+  patch :p0 do
+    url "https://gist.githubusercontent.com/illume/ac2eb4daa1bd805255d5355806acf822/raw/7e3c83f760fe5bf61a9f6bcc196ed9be6f6e22da/sdl2-mac-10-11.patch"
+    sha256 "25f534e35f92244f006e4d2e5740bc65f502136ffa5ebe8427963434bd46f590"
+  end
+
   def install
     # we have to do this because most build scripts assume that all sdl modules
     # are installed to the same prefix. Consequently SDL stuff cannot be
