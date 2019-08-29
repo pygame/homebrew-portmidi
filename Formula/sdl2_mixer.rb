@@ -11,7 +11,7 @@ class Sdl2Mixer < Formula
 
   depends_on "pkg-config" => :build
   depends_on "libmodplug"
-  depends_on "sdl2"
+  depends_on "pygame/portmidi/sdl2"
   depends_on "pygame/portmidi/libmikmod"
   depends_on "pygame/portmidi/libogg"
   depends_on "pygame/portmidi/libvorbis"
