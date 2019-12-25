@@ -1,7 +1,7 @@
 class Portmidi < Formula
   desc "Cross-platform library for real-time MIDI I/O"
   homepage "https://sourceforge.net/projects/portmedia/"
-  url "https://downloads.sourceforge.net/project/portmedia/portmidi/217/portmidi-src-217.zip"
+  url "https://github.com/pygame/homebrew-portmidi/releases/download/bottles0/portmidi-src-217.zip"
   sha256 "08e9a892bd80bdb1115213fb72dc29a7bf2ff108b378180586aa65f3cfd42e0f"
   revision 1
 
