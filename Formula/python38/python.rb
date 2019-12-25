@@ -3,13 +3,12 @@ class Python < Formula
   homepage "https://www.python.org/"
   url "https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tar.xz"
   sha256 "b356244e13fb5491da890b35b13b2118c3122977c2cd825e3eb6e7d462030d84"
-  head "https://github.com/python/cpython.git"
 
   bottle do
     rebuild 1
-    sha256 "9440ef937392b1c965f552ae72a63973c604f4c4b563891477423d97ff5a1c45" => :catalina
-    sha256 "387e32b735f3273bee16e8d8d20686ac40bd81e642a7e3d13cd21966698a4b77" => :mojave
-    sha256 "e7f28679d42fe0dcf602cef5d1a45754697954e1d012768a9b72b5db234856f2" => :high_sierra
+    sha256 "72c20e5109fea0ab0295d4199b214317c11a64b86f52a999094d3479eed15d7b" => :catalina
+    sha256 "8b80453389d00237b65796ef5ab3fc240204ee4e77169dd8c606ecf163901942" => :mojave
+    sha256 "b5e18adb673fce8cc5261f7614c723369bc74188169c6801344166911a7fb0cd" => :high_sierra
   end
 
   # setuptools remembers the build flags python is built with and uses them to
@@ -33,13 +32,13 @@ class Python < Formula
   skip_clean "bin/easy_install3", "bin/easy_install-3.4", "bin/easy_install-3.5", "bin/easy_install-3.6", "bin/easy_install-3.7", "bin/easy_install-3.8"
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/f4/d5/a6c19dcbcbc267aca376558797f036d9bcdff344c9f785fe7d0fe9a5f2a7/setuptools-41.4.0.zip"
-    sha256 "7eae782ccf36b790c21bde7d86a4f303a441cd77036b25c559a602cf5186ce4d"
+    url "https://files.pythonhosted.org/packages/f7/b6/5b98441b6749ea1db1e41e5e6e7a93cbdd7ffd45e11fe1b22d45884bc777/setuptools-42.0.2.zip"
+    sha256 "c5b372090d7c8709ce79a6a66872a91e518f7d65af97fca78135e1cb10d4b940"
   end
 
   resource "pip" do
-    url "https://files.pythonhosted.org/packages/af/7a/5dd1e6efc894613c432ce86f1011fcc3bbd8ac07dfeae6393b7b97f1de8b/pip-19.3.tar.gz"
-    sha256 "324d234b8f6124846b4e390df255cacbe09ce22791c3b714aa1ea6e44a4f2861"
+    url "https://files.pythonhosted.org/packages/ce/ea/9b445176a65ae4ba22dce1d93e4b5fe182f953df71a145f557cffaffc1bf/pip-19.3.1.tar.gz"
+    sha256 "21207d76c1031e517668898a6b46a9fb1501c7a4710ef5dfd6a40ad9e6757ea7"
   end
 
   resource "wheel" do
@@ -117,7 +116,7 @@ class Python < Formula
     Dir.glob("#{prefix}/*.app") { |app| mv app, app.sub(/\.app$/, " 3.app") }
 
     # Prevent third-party packages from building against fragile Cellar paths
-    inreplace Dir[lib_cellar/"**/_sysconfigdata_m_darwin_darwin.py",
+    inreplace Dir[lib_cellar/"**/_sysconfigdata__darwin_darwin.py",
                   lib_cellar/"config*/Makefile",
                   frameworks/"Python.framework/Versions/3*/lib/pkgconfig/python-3.?.pc"],
               prefix, opt_prefix
@@ -128,7 +127,7 @@ class Python < Formula
               "LINKFORSHARED=\\1PYTHONFRAMEWORKINSTALLDIR\\2"
 
     # Fix for https://github.com/Homebrew/homebrew-core/issues/21212
-    inreplace Dir[lib_cellar/"**/_sysconfigdata_m_darwin_darwin.py"],
+    inreplace Dir[lib_cellar/"**/_sysconfigdata__darwin_darwin.py"],
               %r{('LINKFORSHARED': .*?)'(Python.framework/Versions/3.\d+/Python)'}m,
               "\\1'#{opt_prefix}/Frameworks/\\2'"
 
@@ -224,7 +223,6 @@ class Python < Formula
     cfg.atomic_write <<~EOS
       [install]
       prefix=#{HOMEBREW_PREFIX}
-
       [build_ext]
       include_dirs=#{include_dirs.join ":"}
       library_dirs=#{library_dirs.join ":"}
@@ -241,7 +239,6 @@ class Python < Formula
       import re
       import os
       import sys
-
       if sys.version_info[0] != 3:
           # This can only happen if the user has set the PYTHONPATH for 3.x and run Python 2.x or vice versa.
           # Every Python looks at the PYTHONPATH variable and we can't fix it here in sitecustomize.py,
@@ -251,7 +248,6 @@ class Python < Formula
           exit('Your PYTHONPATH points to a site-packages dir for Python 3.x but you are running Python ' +
                str(sys.version_info[0]) + '.x!\\n     PYTHONPATH is currently: "' + str(os.environ['PYTHONPATH']) + '"\\n' +
                '     You should `unset PYTHONPATH` to fix this.')
-
       # Only do this for a brewed python:
       if os.path.realpath(sys.executable).startswith('#{rack}'):
           # Shuffle /Library site-packages to the end of sys.path
@@ -260,12 +256,10 @@ class Python < Formula
           sys.path = [p for p in sys.path if not p.startswith(library_site)]
           # .pth files have already been processed so don't use addsitedir
           sys.path.extend(library_packages)
-
           # the Cellar site-packages is a symlink to the HOMEBREW_PREFIX
           # site_packages; prefer the shorter paths
           long_prefix = re.compile(r'#{rack}/[0-9\._abrc]+/Frameworks/Python\.framework/Versions/#{xy}/lib/python#{xy}/site-packages')
           sys.path = [long_prefix.sub('#{HOMEBREW_PREFIX/"lib/python#{xy}/site-packages"}', p) for p in sys.path]
-
           # Set the sys.executable to use the opt_prefix, unless explicitly set
           # with PYTHONEXECUTABLE:
           if 'PYTHONEXECUTABLE' not in os.environ:
